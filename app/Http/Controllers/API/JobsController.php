@@ -24,6 +24,20 @@ class JobsController extends Controller
         return response()->json($data);
     }
 
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nama'=>'required',
+        ]);
+        $data = [
+            'name' => $request->input('nama'),
+        ];
+        Jobs::where('id_jobs',$id)->update($data);
+        return response()->json([
+            'status' => 'success'
+        ]);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -40,6 +54,14 @@ class JobsController extends Controller
 
         Jobs::create($data);
 
+        return response()->json([
+            'status' => 'success'
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        Jobs::where('id_jobs',$id)->delete();
         return response()->json([
             'status' => 'success'
         ]);

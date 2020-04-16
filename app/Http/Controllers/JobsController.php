@@ -96,6 +96,7 @@ class JobsController extends Controller
      * @param  \App\Jobs  $jobs
      * @return \Illuminate\Http\Response
      */
+    
     public function destroy($id)
     {
         Jobs::where('id_jobs',$id)->delete();

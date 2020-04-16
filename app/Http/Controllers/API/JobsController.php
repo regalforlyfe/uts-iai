@@ -23,4 +23,25 @@ class JobsController extends Controller
     
         return response()->json($data);
     }
+
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nama'=>'required|min:5|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        $data = [
+            'name' => $request->input('nama'),
+        ];
+
+        Jobs::create($data);
+
+        return response()->json([
+            'status' => 'success'
+        ]);
+    }
 }
